@@ -1,0 +1,25 @@
+# Dependency directories
+node_modules/
+
+# Build outputs
+dist/
+dist-tauri/
+src-tauri/target/
+
+# Local/Test data files
+test-files/
+Fixed_*.xlsx
+Fixed_*.xls
+Fixed_*.csv
+sample.xlsx
+sample_swapped.csv
+
+# IDEs and OS files
+.DS_Store
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

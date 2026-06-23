@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  background: #131313;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+.mica-effect {
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+}
+.card-active {
+  box-shadow: 0 0 15px -2px rgba(163, 201, 255, 0.3);
+  border: 2px solid #a3c9ff !important;
+  background: linear-gradient(135deg, rgba(0, 120, 212, 0.3) 0%, rgba(6, 187, 99, 0.3) 100%) !important;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #404752;
+  border-radius: 10px;
+}
+@keyframes flow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.progress-flow {
+  animation: flow 2s infinite ease-in-out;
+}
+.check-icon {
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+.card-active .check-icon {
+  opacity: 1;
+}
