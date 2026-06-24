@@ -2,6 +2,11 @@
 
 **English** | [简体中文](README.zh.md)
 
+[![Node.js](https://img.shields.io/badge/Node.js-v18+-green.svg)](https://nodejs.org)
+[![Tauri](https://img.shields.io/badge/Tauri-2.x-orange.svg)](https://tauri.app/)
+[![Rust](https://img.shields.io/badge/Rust-stable-blue.svg)](https://www.rust-lang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A high-performance, modern desktop and web utility built with **Tauri 2 + Vite + Tailwind CSS + ExcelJS** designed to clean, normalize, format, and fix date/time-stamped datasets (Excel and CSV files).
 
 This application features a Material Design 3 dark theme with native-like mica translucency, dynamic data previewing, and a real-time system log panel to monitor the pipeline's progress.

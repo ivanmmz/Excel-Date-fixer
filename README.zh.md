@@ -2,6 +2,11 @@
 
 [English](README.md) | **简体中文**
 
+[![Node.js](https://img.shields.io/badge/Node.js-v18+-green.svg)](https://nodejs.org)
+[![Tauri](https://img.shields.io/badge/Tauri-2.x-orange.svg)](https://tauri.app/)
+[![Rust](https://img.shields.io/badge/Rust-stable-blue.svg)](https://www.rust-lang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 一款基于 **Tauri 2 + Vite + Tailwind CSS + ExcelJS** 构建的高性能现代桌面与 Web 双模工具，专为自动整理、补全、规范化和格式化带有日期/时间戳的 Excel 和 CSV 数据集而设计。
 
 本工具采用了 Material Design 3 现代暗色主题与 Mica 半透明磨砂玻璃效果，并配备了动态数据预览表格和实时系统日志面板，方便用户跟踪数据流水线的处理进度。
