@@ -1,5 +1,7 @@
 # Excel Date Fixer Pro (Excel 日期与数据修复大师)
 
+[English](README.md) | **简体中文**
+
 一款基于 **Tauri 2 + Vite + Tailwind CSS + ExcelJS** 构建的高性能现代桌面与 Web 双模工具，专为自动整理、补全、规范化和格式化带有日期/时间戳的 Excel 和 CSV 数据集而设计。
 
 本工具采用了 Material Design 3 现代暗色主题与 Mica 半透明磨砂玻璃效果，并配备了动态数据预览表格和实时系统日志面板，方便用户跟踪数据流水线的处理进度。

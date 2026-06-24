@@ -1,5 +1,7 @@
 # Excel Date Fixer Pro
 
+**English** | [简体中文](README.zh.md)
+
 A high-performance, modern desktop and web utility built with **Tauri 2 + Vite + Tailwind CSS + ExcelJS** designed to clean, normalize, format, and fix date/time-stamped datasets (Excel and CSV files).
 
 This application features a Material Design 3 dark theme with native-like mica translucency, dynamic data previewing, and a real-time system log panel to monitor the pipeline's progress.
