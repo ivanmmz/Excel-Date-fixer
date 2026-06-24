@@ -139,3 +139,10 @@ excel-date-fixer/
 ## Contributing
 欢迎提交贡献！请随时提交 Pull Request。
 提交 Pull Request 即表示您同意在相同的 [MIT 许可协议](LICENSE) 下授权您的贡献。
+
+---
+
+## 支持与赞助 (Buy Me a Coffee)
+如果您觉得 Excel Date Fixer Pro 帮您节省了时间、解决了数据修复难题，欢迎请开发者喝杯咖啡，支持持续的开发和维护！☕
+
+![请喝咖啡](docs/images/一杯咖啡.JPG)

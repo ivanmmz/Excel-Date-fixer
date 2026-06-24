@@ -139,3 +139,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request. 
 By submitting a PR, you agree to license your contributions under the same [MIT License](LICENSE).
+
+---
+
+## Buy Me a Coffee / Support
+If Excel Date Fixer Pro helped you save time and fix your datasets, feel free to support the developer! ☕
+
+![Buy Me a Coffee](docs/images/一杯咖啡.JPG)
