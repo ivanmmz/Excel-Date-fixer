@@ -1,0 +1,61 @@
+============================================================
+Excel Date Fixer Pro - Cross-Platform Development Guide
+============================================================
+
+This file contains the environment requirements and running commands
+for any operating system (macOS, Windows, Linux).
+
+------------------------------------------------------------
+1. Prerequisites (环境准备)
+------------------------------------------------------------
+- Node.js (v18 or higher)
+  - Download: https://nodejs.org/
+  - Or use Bun (recommended, extremely fast): https://bun.sh/
+
+- Rust Toolchain
+  - Download: https://rustup.rs/
+  - Note: On macOS, you also need Xcode Command Line Tools. Run:
+    xcode-select --install
+
+------------------------------------------------------------
+2. Install Dependencies (安装依赖)
+------------------------------------------------------------
+Open your terminal/command prompt in this directory and run:
+
+Using Bun (Recommended):
+  bun install
+
+Using npm (Standard Node.js):
+  npm install
+
+------------------------------------------------------------
+3. Run Development Server (启动开发服务器)
+------------------------------------------------------------
+To start the app in development mode:
+
+Using Bun (Recommended):
+  bun run dev:tauri
+
+Using npm:
+  npm run dev:tauri
+
+------------------------------------------------------------
+4. Build / Package Application (打包构建)
+------------------------------------------------------------
+To package the app into a standalone installer/executable:
+
+Using Bun (Recommended):
+  bun run build:tauri
+
+Using npm:
+  npm run build:tauri
+
+------------------------------------------------------------
+5. Stop Dev Processes (停止开发服务)
+------------------------------------------------------------
+If you need to manually stop development processes or free ports:
+- On Windows: Close the terminal window.
+- On macOS/Linux: Press Ctrl + C in the terminal running the server,
+  or run:
+    kill -9 $(lsof -t -i:5173 -i:5174) 2>/dev/null
+============================================================

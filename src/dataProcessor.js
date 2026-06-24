@@ -347,28 +347,61 @@ export function taskStandardize1440(rows, dateCol, timeCol) {
  * role 'Date' → days since 1899-12-30; role 'Time' → fraction of day.
  */
 export function taskDateToValue(rows, targets) {
-  for (const [colIdx, role] of targets) {
-    if (colIdx === null || colIdx === undefined || colIdx >= (rows[0]?.length ?? 0)) continue;
-    for (let r = 0; r < rows.length; r++) {
-      const dt = tryParseAnyDate(rows[r][colIdx]);
-      if (!dt) continue;
-      if (role === 'Date') {
-        const year = dt.getUTCFullYear();
-        const month = dt.getUTCMonth();
-        const date = dt.getUTCDate();
-        const dtUtc = Date.UTC(year, month, date);
-        rows[r][colIdx] = (dtUtc - EXCEL_EPOCH_UTC) / MS_PER_DAY;
-      } else {
-        const hours = dt.getUTCHours();
-        const minutes = dt.getUTCMinutes();
-        const seconds = dt.getUTCSeconds();
-        const ms = dt.getUTCMilliseconds();
-        const dayMs = hours * 3600000 + minutes * 60000 + seconds * 1000 + ms;
-        rows[r][colIdx] = dayMs / MS_PER_DAY;
+  for (let r = 0; r < rows.length; r++) {
+    for (let c = 0; c < rows[r].length; c++) {
+      let val = rows[r][c];
+      if (val === null || val === undefined) continue;
+
+      // 1. If it's a formula, extract the result
+      if (typeof val === 'object' && val.formula !== undefined) {
+        val = val.result;
+        if (val === null || val === undefined) {
+          rows[r][c] = val;
+          continue;
+        }
       }
+
+      // 2. If it's a Date object, convert to Excel serial number (decimal date + time)
+      if (val instanceof Date) {
+        if (!isNaN(val.getTime())) {
+          rows[r][c] = (val.getTime() - EXCEL_EPOCH_UTC) / MS_PER_DAY;
+        }
+        continue;
+      }
+
+      // 3. If it's a string, try converting to number or date
+      if (typeof val === 'string') {
+        const trimmed = val.trim();
+        if (trimmed === '') {
+          rows[r][c] = null;
+          continue;
+        }
+
+        // Try parsing as number first
+        const num = Number(trimmed);
+        if (!isNaN(num)) {
+          rows[r][c] = num;
+          continue;
+        }
+
+        // Try parsing as date
+        const dt = tryParseAnyDate(trimmed);
+        if (dt) {
+          rows[r][c] = (dt.getTime() - EXCEL_EPOCH_UTC) / MS_PER_DAY;
+          continue;
+        }
+
+        // Keep as trimmed string
+        rows[r][c] = trimmed;
+        continue;
+      }
+
+      // Keep other types as is
+      rows[r][c] = val;
     }
   }
 }
+
 
 // ── Task 5: Smart Format ──────────────────────────────────────────────────────
 
