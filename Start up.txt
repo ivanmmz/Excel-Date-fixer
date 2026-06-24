@@ -1,0 +1,21 @@
+============================================
+ Excel Date Fixer Pro - Startup Commands
+============================================
+
+--- Prerequisites ---
+- Node.js v18+  (https://nodejs.org)
+- Rust         (https://rustup.rs)
+- (macOS only) Xcode CLI Tools: xcode-select --install
+
+--- Install Dependencies ---
+Windows:  requirement.win.cmd    (double-click)
+macOS:    chmod +x requirement.mac.sh && ./requirement.mac.sh
+Or manually:  npm install
+
+--- Start Dev Server ---
+Windows (cmd):    npm run dev:tauri
+macOS (terminal): npm run dev:tauri
+
+--- Build for Production ---
+Windows (cmd):    npm run build:tauri
+macOS (terminal): npm run build:tauri

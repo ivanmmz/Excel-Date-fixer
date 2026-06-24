@@ -1,113 +1,141 @@
 # Excel Date Fixer Pro
 
-A desktop app built with **Tauri 2 + Vite + Tailwind CSS + ExcelJS** that fixes common date/time formatting issues in Excel files.
+A high-performance, modern desktop and web utility built with **Tauri 2 + Vite + Tailwind CSS + ExcelJS** designed to clean, normalize, format, and fix date/time-stamped datasets (Excel and CSV files).
+
+This application features a Material Design 3 dark theme with native-like mica translucency, dynamic data previewing, and a real-time system log panel to monitor the pipeline's progress.
 
 ---
 
-## Quick Start (after cloning)
+## 📸 Interface Preview
 
-### Step 1 — Install prerequisites + npm packages
+### Initial Dashboard
+The clean, modern Material Design 3 interface with all task settings and file options readily accessible:
+![Initial Dashboard](docs/images/initial_dashboard.png)
 
-Double-click **`install-requirements.cmd`**
+### Data Import & Original Preview
+Once a CSV or Excel file (such as `Sep_2025.csv`) is uploaded, a quick, optimized preview shows the raw data headers and the first few rows of data:
+![Data Import Preview](docs/images/imported_data.png)
 
-This script will:
-- Check for Node.js (LTS) and Rust — install via `winget` if missing
-- Run `npm install` to pull all packages from `package.json`
-- Verify that `vite`, `@tauri-apps/cli`, `@tauri-apps/api`, and `exceljs` are present
-
-> If Node.js or Rust was just installed, close and reopen the terminal, then run the script again.
-
-### Step 2 — Start development
-
-Double-click **`dev.cmd`**
-
-This launches Tauri dev mode with hot reload (Vite + Rust Tauri shell).
+### Pipeline Processing & Success State
+After running the pipeline, the system logs execution steps in real-time, displays a green `PROCESSED PREVIEW` badge, updates the table preview, and allows exporting the cleaned Excel sheet:
+![Processed Preview and Success](docs/images/processed_data.png)
 
 ---
 
-## Prerequisites (installed by `install-requirements.cmd`)
+## 🚀 Key Features
 
-| Tool | Version | Link |
-|------|---------|------|
-| Node.js | LTS (v20+) | https://nodejs.org |
-| Rust | stable | https://rustup.rs |
-| npm packages | see `package.json` | — |
+Excel Date Fixer Pro runs a sequential multi-task pipeline to cleanse date-time datasets:
 
----
+1. **Date Format Correction** (`date_format`)
+   - Smart Month/Day swap detection (e.g. DD/MM vs MM/DD) when dates are ambiguous.
+   - Cleans delimiters (normalizes periods `.` or dashes `-` to standard forward slashes `/`).
+   - Automatically detects time components and maintains format parity.
+   
+2. **Gap Fill (Forward Fill)** (`fix_missing`)
+   - Automatically scans numerical columns for empty/null values.
+   - Forward-fills gaps up to a user-defined threshold (e.g. 20 consecutive rows).
+   - Automatically protects Date/Time column fields to ensure timestamp integrity.
 
-## npm Dependencies (`package.json`)
+3. **1440 Minute-by-Minute Standardization** (`standard_1440`)
+   - Groups records by calendar day.
+   - Deduplicates multiple records falling within the same minute, preserving the first observation.
+   - Pads incomplete days up to exactly 1,440 rows (1 record per minute), copying the last observed values forward.
+   - Critical for power system profiles, load analyses, and meteorological data modeling.
 
-| Package | Purpose |
-|---------|---------|
-| `exceljs` | Read/write `.xlsx` files in the browser |
-| `@tauri-apps/api` | Tauri window API (minimize, maximize, close) |
-| `@tauri-apps/cli` | `npx tauri dev` / `npx tauri build` |
-| `vite` | Dev server and bundler |
-| `tailwindcss` | Utility CSS framework |
-| `postcss` / `autoprefixer` | CSS processing |
+4. **Date to Value Conversion** (`date_to_value`)
+   - Converts Date and Time columns to raw Excel serial numbers (fractional representation of days since Dec 30, 1899).
+   - Useful for feeding cleaned outputs directly into analytics engines or formulas.
 
-All dependencies are declared in `package.json`. A single `npm install` installs everything.
-
----
-
-## Icon Setup (for packaging only)
-
-Icons are **not required for dev mode**. To generate them before building a release:
-
-1. Place a **256×256 RGBA PNG** named `app-icon.png` in the project root
-2. Run:
-   ```
-   npx tauri icon app-icon.png
-   ```
-   This generates all required sizes into `src-tauri/icons/`.
+5. **Smart Excel Formatting & Formulas** (Automatic)
+   - Converts JS Date objects into native Excel Date objects styled with standard formatting strings (e.g., `DD/MM/YYYY`).
+   - Replaces raw time strings with active `=TIME(hour, minute, second)` formulas, preserving spreadsheet formula-based time calculations.
 
 ---
 
-## Build for Production
+## 🛠️ Step-by-Step Walkthrough with `Sep_2025.csv`
 
+To perform a test run with the sample load profile data `C:\Users\Ivan\Desktop\Sep_2025.csv`:
+
+1. **Add the File**: Click **`+ Add File`** at the bottom-left panel, and select `Sep_2025.csv` from the file chooser (or drag-and-drop it anywhere into the window).
+2. **Review Initial Preview**: The preview table will display the headers (`Date`, `Time`, `CH1_KW`, etc.) and the original data showing any formatting issues or empty time cells.
+3. **Configure Options**:
+   - Set **Date Format** to `DD/MM/YYYY` and **Time Format** to `HH:mm:ss`.
+   - Set **Threshold (Val)** for Gap Fill to `20`.
+   - Ensure the required tasks (**Date Format**, **Gap Fill**, **1440 Std**) are selected (active tasks show a checked mark on their card).
+4. **Execute**: Click **`RUN PIPELINE`**.
+   - The status bar will show `PROCESSING...` as the progress bar rises.
+   - The **System Logs** will show live steps: parsing `Sep_2025.csv`, swapping DD/MM formats, filling gaps, standardizing daily intervals, and writing rows.
+5. **Preview & Export**:
+   - Once completed, the badge changes to `PROCESSED PREVIEW` (in green).
+   - Review the fixed time formatting and the filled numerical cells.
+   - Click **`Export / Save As`** to save the standardized, fixed Excel workbook as a `.xlsx` file.
+
+---
+
+## 🖥️ Running Locally
+
+### Prerequisites
+* **Node.js** v18+ (LTS recommended)
+* **Rust** (for Tauri desktop compilation)
+
+### Install Dependencies
+To install dependencies automatically on Windows, run the script:
+```cmd
+./requirement.win.cmd
 ```
-npx tauri build
+For macOS/Linux:
+```bash
+chmod +x requirement.mac.sh && ./requirement.mac.sh
+```
+Or manually install using:
+```bash
+npm install
 ```
 
-Outputs a standalone `.exe` installer to `src-tauri/target/release/bundle/`.
+### Start Development Server
+To launch the hot-reloaded Tauri application shell:
+```bash
+npm run dev:tauri
+```
+To run the project in a local web browser environment instead:
+```bash
+npm run dev
+```
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### Build Standalone App
+To build the production installer:
+```bash
+npm run build:tauri
+```
+The standalone installer will be outputted under `src-tauri/target/release/bundle/`.
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 excel-date-fixer/
-├── index.html                  # Main UI (HTML + Tailwind)
+├── index.html                  # Main UI layout
 ├── src/
-│   ├── style.css               # Tailwind + custom theme
-│   ├── dataProcessor.js        # Core Excel processing logic
-│   └── main.js                 # UI interactions & file queue
+│   ├── style.css               # Tailwind CSS theme & mica effects
+│   ├── dataProcessor.js        # Core Excel & CSV data parsing/formatting algorithms
+│   └── main.js                 # UI logic, file queue management, & Tauri bridging
+├── docs/
+│   └── images/                 # Walkthrough screenshots
 ├── src-tauri/
-│   ├── Cargo.toml              # Rust dependencies
-│   ├── tauri.conf.json         # Tauri configuration
-│   ├── icons/                  # App icons (generated by tauri icon)
-│   └── src/main.rs             # Rust entry point
-├── package.json                # Node.js dependencies & scripts
-├── vite.config.js              # Vite build configuration
-├── tailwind.config.js          # Tailwind theme (Material Design 3)
-├── postcss.config.js           # PostCSS plugins
-├── install-requirements.cmd    # First-time setup script
-├── dev.cmd                     # Launch dev server
-└── stop-services.cmd           # Kill all dev processes
+│   ├── Cargo.toml              # Rust configuration
+│   ├── tauri.conf.json         # Tauri application configuration
+│   └── src/main.rs             # Tauri entry point
+├── package.json                # npm dependencies & script commands
+└── vite.config.js              # Vite server & build configurations
 ```
-
----
-
-## Features
-
-- Material Design 3 dark theme
-- 4 processing tasks: Date Format, Gap Fill, 1440 Std, Date → Val
-- Drag-and-drop file queue
-- Real-time system log panel
-- Outputs fixed `.xlsx` files as direct browser downloads
 
 ---
 
 ## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-MIT
+## Contributing
+Contributions are welcome! Please feel free to submit a Pull Request. 
+By submitting a PR, you agree to license your contributions under the same [MIT License](LICENSE).
