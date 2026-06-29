@@ -152,4 +152,4 @@ By submitting a PR, you agree to license your contributions under the same [MIT 
 ## Buy Me a Coffee / Support
 If Excel Date Fixer Pro helped you save time and fix your datasets, feel free to support the developer! ☕
 
-![Buy Me a Coffee](docs/images/一杯咖啡.JPG)
+<img src="docs/images/一杯咖啡.JPG" width="280" alt="Buy Me a Coffee" />
